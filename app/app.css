@@ -1,0 +1,15 @@
+.st-sort-ascent:after{
+    content: '\25B2';
+  }
+
+.st-sort-descent:after{
+    content: '\25BC';
+}
+
+.user-detail {
+    margin-bottom: 20px;
+}
+
+.user-detail > tbody > tr > td {
+    padding: 10px;
+}

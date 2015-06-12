@@ -1,0 +1,16 @@
+<div>
+    <table class="table">
+        <tr ng-repeat="token in tokens">
+            <td>{{token}}</td>
+            <td>
+                <button class="btn btn-xs" ng-click="deleteToken($index)">
+                    <span class="glyphicon glyphicon-trash"></span>   Delete token
+                </button>
+            </td>
+        </tr>
+    </table>
+    
+    <button class="btn btn-success" ng-click="addToken($scope)">
+        <span class="glyphicon glyphicon-plus"></span>  Add token
+    </button>
+</div>

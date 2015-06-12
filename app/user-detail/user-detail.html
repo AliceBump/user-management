@@ -1,0 +1,57 @@
+<div class="container" ng-controller="UserDetailCtrl">
+    <div class="page-header">
+        <h3>User Detail</h3>
+    </div>
+    
+    <table class="user-detail">
+        <tr>
+            <td><b>Username:</b></td>
+            <td ng-hide="updating">{{ user.username }}</td>
+            <td ng-show="updating">
+                <form name="editFormUname">
+                    <input class="form-control" type="email" aria-describedby="sizing-addon3" ng-model="user.selected.username" required/>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Password:</b></td>
+            <td ng-hide="updating">{{ user.password }}</td>
+            <td ng-show="updating">
+                <form name="editFormPword">
+                    <input class="form-control" aria-describedby="sizing-addon3" ng-model="user.selected.password" ng-minlength="8" ng-pattern="/(?=.*?[0-9])/" required/>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Created:</b></td>
+            <td>{{user.created | date:'medium'}}</td>
+        </tr>
+        <tr>
+            <td style="padding-right: 8px;"><b>Last Updated:</b></td>
+            <td>{{ user.updated | date:'medium'}}</td>
+        </tr>
+    </table>
+    
+    <div ng-hide="updating">
+        <button class="btn btn-default btn-sm" ng-click="updating = true; editUser(user)">
+            <span class="glyphicon glyphicon-pencil"></span>   Edit
+        </button>
+    </div>
+    
+    <div ng-show="updating">
+        <button class="btn btn-success btn-sm" ng-disabled="!editFormUname.$valid || !editFormPword.$valid" ng-click="updateUser(user); updating = false">
+            Save
+        </button>
+        <button class="btn btn-default btn-sm" ng-click="updating = false">
+            Cancel
+        </button>
+        <button class="btn btn-danger btn-sm" ng-click="deleteUser(user)">
+            <span class="glyphicon glyphicon-trash"></span>   Delete user
+        </button>
+    </div>
+    
+    <hr>
+    <h4>Tokens</h4>
+    
+    <my-tokens></my-tokens>
+</div>

@@ -1,0 +1,46 @@
+<div class="container" ng-controller="UserListCtrl">
+    <div class="page-header">
+        <h3>Users</h3>
+    </div>
+    
+    <div>
+        <table st-table="displayedUsers" st-safe-src="users" class="table">
+            <thead>
+                <tr>
+                    <th st-ratio="25" st-sort="username">Username</th>
+                    <th st-ratio="25" st-sort="password">Password</th>
+                    <th st-ratio="20" st-sort="created">Created</th>
+                    <th st-ratio="20" st-sort="updated">Updated</th>
+                    <th st-ratio="10"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in displayedUsers">
+                    <td st-ratio="25">{{ user.username }}</td>
+                    <td st-ratio="25">{{ user.password }}</td>
+                    <td st-ratio="20">{{ user.created | date:'short'}}</td>
+                    <td st-ratio="20">{{ user.updated | date:'short'}}</td>
+                    <td st-ratio="10">                        
+                        <a class="btn btn-default btn-sm" href="#/users/{{user.id}}">
+                            Details
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" class="text-center">
+                        <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <hr>
+
+    <h4>Create New User</h4>
+
+    <my-add-user></my-add-user>
+
+</div>
