@@ -1,0 +1,25 @@
+{
+  "name": "user-management",
+  "version": "0.0.0",
+  "authors": [
+    "Irene Fung <irene.ifung@gmail.com>"
+  ],
+  "description": "AngularJS User Management Web Application",
+  "main": "app.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-local-storage": "~0.2.1",
+    "angular-route": "~1.3.0",
+    "angular-smart-table": "2.0.3",
+    "angular-ui-utils": "~0.2.3",
+    "angular-uuid4": "~0.3.0", 
+    "bootstrap": "~3.3.4"
+  }
+}
