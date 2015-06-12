@@ -43,5 +43,4 @@ Irene Fung irene.ifung@gmail.com
 
 [bower-download]: http://bower.io/
 [git-home]: http://git-scm.com
-[travis]: https://travis-ci.org/
 [python-download]: https://www.python.org/downloads/
