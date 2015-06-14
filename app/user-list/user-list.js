@@ -15,6 +15,7 @@ angular.module('userMgmtApp.user-list', ['ngRoute'])
         $scope.userIds = usersFactory.get('userIds') || [];
         $scope.users = usersFactory.getAll() || [];
             
+        // Watch the array of userIDs, updates the list of users in the scope
         $scope.$watchCollection('userIds', function () {
             usersFactory.set('userIds', $scope.userIds);
             $scope.users = usersFactory.getAll();
@@ -22,9 +23,11 @@ angular.module('userMgmtApp.user-list', ['ngRoute'])
         
         $scope.displayedUsers = [].concat($scope.users);
         
+        // Checks to see if username is unique
         $scope.uniqueUsername = function (value, index) {
             var idx;
 
+            // If editing an user, the original 
             if (index > -1 && (!value || value === $scope.users[index].username)) {
                 return true;
             }
@@ -55,6 +58,8 @@ angular.module('userMgmtApp.user-list', ['ngRoute'])
         return {
             restrict: 'E',
             controller: function ($scope) {
+                
+                // Adds a new user to local storage
                 $scope.addUser = function () {
                     var newId = uuid4.generate(),
                         newUser = { id: newId,
@@ -62,11 +67,14 @@ angular.module('userMgmtApp.user-list', ['ngRoute'])
                                    password: $scope.password,
                                    created: (new Date()),
                                    updated: (new Date()) };
-
+                    
+                    // Save to local storage
                     usersFactory.set(newId, newUser);
 
+                    // Add new user ID to the array
                     $scope.userIds.push(newId);
                     
+                    // Reset the form
                     $scope.username = '';
                     $scope.password = '';
                     $scope.userForm.$setPristine();

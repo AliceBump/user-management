@@ -1,5 +1,4 @@
 angular.module('userMgmtApp.user-detail', ['ngRoute'])
-
     .config(['$routeProvider', function ($routeProvider) {
         'use strict';
 
@@ -8,35 +7,41 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
             controller: 'UserDetailCtrl'
         });
     }])
-
     .controller('UserDetailCtrl', ['$scope', '$location', '$routeParams', 'uuid4', 'usersFactory', function ($scope, $location, $routeParams, uuid4, usersFactory) {
         'use strict';
         
         $scope.user = usersFactory.get($routeParams.id);
         $scope.tokens = usersFactory.get($routeParams.id).tokens || [];
 
+        // Watch the user object for any changes
         $scope.$watch($scope.user, function () {
             usersFactory.set($routeParams.id, $scope.user);
-        }, true);
+        });
         
+        // Makes a copy of the user when Edit button is clicked
         $scope.editUser = function (user) {
             $scope.user.selected = angular.copy(user);
         };
 
+        // Saves updated user when Save button is clicked
         $scope.updateUser = function (user) {
             $scope.user.selected.updated = new Date();
             usersFactory.set(user.id, $scope.user.selected);
             $scope.user = $scope.user.selected;
         };
 
+        // Deletes user
         $scope.deleteUser = function (user) {
             var userIds = usersFactory.get('userIds');
             
+            // Deletes user ID from userIDs array
             userIds.splice(userIds.indexOf(user.id), 1);
             usersFactory.set('userIds', userIds);
             
+            // Deletes user object from local storage
             usersFactory.remove(user.id);
             
+            // Redirects to user list page
             $location.path('/user');
         };
     }])
@@ -46,6 +51,8 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
         return {
             restrict: 'E',
             controller: function ($scope) {
+                
+                // Adds a random, unique token to the user
                 $scope.addToken = function () {
                     var newValue = uuid4.generate(),
                         newToken;
@@ -63,6 +70,7 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
                     $scope.tokens = usersFactory.get($routeParams.id).tokens;
                 };
 
+                // Deletes the token at that index
                 $scope.deleteToken = function (index) {
                     $scope.tokens.splice(index, 1);
                     $scope.user.tokens = $scope.tokens;
