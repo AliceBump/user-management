@@ -42,36 +42,4 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
         UDC.uniqueUsername = function (value, newUser) {
             return userService.uniqueUsername(value, UDC.user.username);
         };
-    }])
-    .directive('myTokens', function ($routeParams, uuid4, userFactory) {
-        'use strict';
-
-        return {
-            restrict: 'E',
-            controller: function ($scope) {
-                var user = userFactory.get($routeParams.id);
-                $scope.tokens = userFactory.get($routeParams.id).tokens;
-                
-                // Adds a random, unique token to the user
-                $scope.addToken = function () {
-                    var newValue = uuid4.generate(),
-                        numToken;
-
-                    numToken = user.tokens.length;
-
-                    user.tokens[numToken] = newValue;
-                    userFactory.set($routeParams.id, user);
-
-                    $scope.tokens = userFactory.get($routeParams.id).tokens;
-                };
-
-                // Deletes the token at that index
-                $scope.deleteToken = function (index) {
-                    $scope.tokens.splice(index, 1);
-                    user.tokens = $scope.tokens;
-                    userFactory.set($routeParams.id, user);
-                };
-            },
-            templateUrl: 'user-detail/my-tokens.html'
-        };
-    });
+    }]);
