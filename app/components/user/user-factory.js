@@ -5,6 +5,7 @@ angular.module('userMgmtApp.userFactory', [])
         var userIds = localStorageService.get('userIds') || [];
     
         return {
+            // Adds an user ID to the list of user IDs
             addId: function (id) {
                 console.log("newId: " + id);
                 userIds.push(id);

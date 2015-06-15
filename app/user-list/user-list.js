@@ -5,8 +5,7 @@ angular.module('userMgmtApp.user-list', ['ngRoute'])
         var ULC = this;
         
         ULC.itemsByPage = 5;
-        
-        //ULC.userIds = userFactory.get('userIds');
+    
         ULC.users = userFactory.getAll();
         ULC.displayedUsers = [].concat(ULC.users);
         
@@ -37,15 +36,4 @@ angular.module('userMgmtApp.user-list', ['ngRoute'])
         ULC.uniqueUsername = function (value, newUser) {
             return userService.uniqueUsername(value, newUser);
         };
-    }])
-    .directive('stRatio', function () {
-        'use strict';
-    
-        return {
-            link: function (scope, element, attr) {
-                var ratio =+ (attr.stRatio);
-
-                element.css('width', ratio + '%');
-            }
-        };
-    });
+    }]);

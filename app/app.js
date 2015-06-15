@@ -2,6 +2,7 @@ angular.module('userMgmtApp', [
     'ngRoute',
     'userMgmtApp.user-list',
     'userMgmtApp.user-detail',
+    'userMgmtApp.userDirective',
     'userMgmtApp.userFactory',
     'userMgmtApp.userService',
     'LocalStorageModule',
