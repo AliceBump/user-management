@@ -1,36 +1,23 @@
-angular.module('userMgmtApp.usersFactory', [])
-    .factory('usersFactory', function (localStorageService) {
+angular.module('userMgmtApp.userService', [])
+    .service('userService', function (userFactory) {
         'use strict';
     
-        return {
-            // Adds a value to local storage
-            set: function (key, value) {
-                localStorageService.set(key, value);
-                return this.getAll();
-            },
-            
-            // Gets a value from local storage
-            get: function (key) {
-                return localStorageService.get(key);
-            },
-            
-            // Gets all users from local storage
-            getAll: function () {
-                var i,
-                    user,
-                    users = [],
-                    userIds = localStorageService.get('userIds') || [];
-                
-                for (i = 0; i < userIds.length; i = i + 1) {
-                    user = localStorageService.get(userIds[i]);
-                    users.push(user);
-                }
-                return users;
-            },
-            
-            // Removes user from local storage
-            remove: function (userId) {
-                localStorageService.remove(userId);
+        this.uniqueUsername = function (value, index) {
+            var users = userFactory.getAll(),
+                idx;
+
+            // If editing an user, the original value is OK
+            if (index > -1  && (!value || value === users[index].username)) {
+                return true;
             }
+    
+            for (idx = 0; idx < users.length; idx = idx + 1) {
+                if (users[idx].username === value) {
+                    return false;
+                }
+            }
+            
+            return true;
         };
-    });
+    }
+            );
