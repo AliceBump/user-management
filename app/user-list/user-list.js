@@ -15,7 +15,8 @@ angular.module('userMgmtApp.user-list', ['ngRoute'])
             var newId = uuid4.generate(),
                 newUser = { id: newId,
                            username: ULC.username, password: ULC.password,
-                           created: (new Date()), updated: (new Date()) };
+                           created: (new Date()), updated: (new Date()),
+                           tokens: [] };
 
             // Save to local storage
             userFactory.set(newId, newUser);
@@ -33,8 +34,8 @@ angular.module('userMgmtApp.user-list', ['ngRoute'])
         };
         
         // Checks to see if username is unique
-        ULC.uniqueUsername = function (value, index) {
-            return userService.uniqueUsername(value, index);
+        ULC.uniqueUsername = function (value, newUser) {
+            return userService.uniqueUsername(value, newUser);
         };
     }])
     .directive('stRatio', function () {

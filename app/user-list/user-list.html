@@ -45,7 +45,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Username/Email:</label>
             <div class="col-sm-10">
-                <input type="email" name="username" ng-model="ULC.username" ui-validate="{ unique : 'ULC.uniqueUsername($value, -1)' }" required/>
+                <input type="email" name="username" ng-model="ULC.username" ui-validate="{ unique : 'ULC.uniqueUsername($value, 1)' }" required/>
                 <span ng-show="userForm.username.$error.required && userForm.username.$dirty">Required</span>
                 <span ng-show="!userForm.username.$error.required && userForm.username.$error.email && userForm.username.$dirty">
                     Username must be a valid email.

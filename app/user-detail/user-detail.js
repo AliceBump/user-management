@@ -1,5 +1,5 @@
 angular.module('userMgmtApp.user-detail', ['ngRoute'])
-    .controller('UserDetailCtrl', ['$scope', '$location', '$routeParams', 'uuid4', 'userFactory', function ($scope, $location, $routeParams, uuid4, userFactory) {
+    .controller('UserDetailCtrl', ['$scope', '$location', '$routeParams', 'userFactory', 'userService', function ($scope, $location, $routeParams, userFactory, userService) {
         'use strict';
         
         var UDC = this;
@@ -12,22 +12,22 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
 //        });
         
         // Watch the user object for any changes
-        $scope.$watch(function () {
-            return this.user;
-        }, function (newVal, oldVal) {
-            userFactory.set($routeParams.id, newVal);
-        });
+//        $scope.$watch(function () {
+//            return this.user;
+//        }, function (newVal, oldVal) {
+//            userFactory.set($routeParams.id, newVal);
+//        });
         
         // Makes a copy of the user when Edit button is clicked
         UDC.editUser = function (user) {
-            UDC.user.selected = angular.copy(user);
+            UDC.selectedUser = angular.copy(user);
         };
 
         // Saves updated user when Save button is clicked
         UDC.updateUser = function (user) {
-            UDC.user.selected.updated = new Date();
-            userFactory.set(user.id, UDC.user.selected);
-            UDC.user = UDC.user.selected;
+            UDC.selectedUser.updated = new Date();
+            userFactory.set(user.id, UDC.selectedUser);
+            UDC.user = UDC.selectedUser;
         };
 
         // Deletes user
@@ -43,6 +43,11 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
             
             // Redirects to user list page
             $location.path('/user');
+        };
+        
+        // Checks to see if username is unique
+        UDC.uniqueUsername = function (value, newUser) {
+            return userService.uniqueUsername(value, UDC.user.username);
         };
     }])
     .directive('myTokens', function ($routeParams, uuid4, userFactory) {

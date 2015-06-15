@@ -9,7 +9,8 @@
             <td ng-hide="updating">{{ UDC.user.username }}</td>
             <td ng-show="updating">
                 <form name="editFormUname">
-                    <input class="form-control" type="email" aria-describedby="sizing-addon3" ng-model="user.selected.username" ui-validate="{unique : 'uniqueUsername($value, {{user.selected.username}})' }" srequired/>
+                    <input class="form-control" type="email" aria-describedby="sizing-addon3" ng-model="UDC.selectedUser.username"
+                           ui-validate="{ unique : 'UDC.uniqueUsername($value, 0)' }" required/>
                 </form>
             </td>
         </tr>
@@ -18,7 +19,8 @@
             <td ng-hide="updating">{{ UDC.user.password }}</td>
             <td ng-show="updating">
                 <form name="editFormPword">
-                    <input class="form-control" aria-describedby="sizing-addon3" ng-model="user.selected.password" ng-minlength="8" ng-pattern="/(?=.*?[0-9])/" required/>
+                    <input class="form-control" aria-describedby="sizing-addon3" ng-model="UDC.selectedUser.password" 
+                           ng-minlength="8" ng-pattern="/(?=.*?[0-9])/" required/>
                 </form>
             </td>
         </tr>
@@ -33,13 +35,13 @@
     </table>
     
     <div ng-hide="updating">
-        <button class="btn btn-default btn-sm" ng-click="updating = true; editUser(user)">
+        <button class="btn btn-default btn-sm" ng-click="updating = true; editUser(UDC.user)">
             <span class="glyphicon glyphicon-pencil"></span>   Edit
         </button>
     </div>
     
     <div ng-show="updating">
-        <button class="btn btn-success btn-sm" ng-disabled="!editFormUname.$valid || !editFormPword.$valid" ng-click="updateUser(user); updating = false">
+        <button class="btn btn-success btn-sm" ng-disabled="!editFormUname.$valid || !editFormPword.$valid" ng-click="updateUser(UDC.user); updating = false">
             Save
         </button>
         <button class="btn btn-default btn-sm" ng-click="updating = false">

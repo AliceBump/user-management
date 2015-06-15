@@ -2,12 +2,12 @@ angular.module('userMgmtApp.userService', [])
     .service('userService', function (userFactory) {
         'use strict';
     
-        this.uniqueUsername = function (value, index) {
+        this.uniqueUsername = function (value, username) {
             var users = userFactory.getAll(),
                 idx;
 
             // If editing an user, the original value is OK
-            if (index > -1  && (!value || value === users[index].username)) {
+            if (username !== 1  && (!value || value === username)) {
                 return true;
             }
     
