@@ -1,10 +1,10 @@
-<div class="container" ng-controller="UserListCtrl">
+<div class="container" ng-controller="UserListCtrl as ULC">
     <div class="page-header">
         <h3>Users</h3>
     </div>
     
     <div>
-        <table st-table="displayedUsers" st-safe-src="users" class="table">
+        <table st-table="ULC.displayedUsers" st-safe-src="ULC.users" class="table">
             <thead>
                 <tr>
                     <th st-ratio="25" st-sort="username">Username</th>
@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="user in displayedUsers">
+                <tr ng-repeat="user in ULC.displayedUsers">
                     <td st-ratio="25">{{ user.username }}</td>
                     <td st-ratio="25">{{ user.password }}</td>
                     <td st-ratio="20">{{ user.created | date:'short'}}</td>
@@ -30,7 +30,7 @@
             <tfoot>
                 <tr>
                     <td colspan="5" class="text-center">
-                        <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                        <div st-pagination="" st-items-by-page="ULC.itemsByPage" st-displayed-pages="7"></div>
                     </td>
                 </tr>
             </tfoot>
@@ -41,6 +41,41 @@
 
     <h4>Create New User</h4>
 
-    <my-add-user></my-add-user>
-
+    <form class="form-horizontal" name="userForm">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Username/Email:</label>
+            <div class="col-sm-10">
+                <input type="email" name="username" ng-model="ULC.username" ui-validate="{ unique : 'ULC.uniqueUsername($value, -1)' }" required/>
+                <span ng-show="userForm.username.$error.required && userForm.username.$dirty">Required</span>
+                <span ng-show="!userForm.username.$error.required && userForm.username.$error.email && userForm.username.$dirty">
+                    Username must be a valid email.
+                </span>
+                <span ng-show="!userForm.username.$error.required && !userForm.username.$error.email && userForm.username.$error.unique 
+                               && userForm.username.$dirty">
+                    Username already exists.
+                </span>
+            </div>
+        </div> 
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Password:</label>
+            <div class="col-sm-10">
+                <input name="password" ng-model="ULC.password" ng-minlength="8" ng-pattern="/(?=.*?[0-9])/" required/>
+                <span ng-show="userForm.password.$error.required && userForm.password.$dirty">Required</span>
+                <span ng-show="!userForm.password.$error.required && userForm.password.$error.minlength && userForm.password.$dirty">
+                    Passwords must be at least 8 characters.
+                </span>
+                <span ng-show="!userForm.password.$error.require && !userForm.password.$error.minlength && userForm.password.$error.pattern 
+                               && userForm.password.$dirty">
+                    Passwords must contain at least one numeric character.
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-success" ng-disabled="!userForm.$valid" ng-click="ULC.addUser()">
+                    <span class="glyphicon glyphicon-save"></span>  Save New User
+                </button>
+            </div>
+        </div>
+    </form>
 </div>
