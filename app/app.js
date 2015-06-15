@@ -2,7 +2,8 @@ angular.module('userMgmtApp', [
     'ngRoute',
     'userMgmtApp.user-list',
     'userMgmtApp.user-detail',
-    'userMgmtApp.usersFactory',
+    'userMgmtApp.userFactory',
+    'userMgmtApp.userService',
     'LocalStorageModule',
     'uuid4',
     'ui.utils',
@@ -11,9 +12,18 @@ angular.module('userMgmtApp', [
     config(['$routeProvider', function ($routeProvider) {
         'use strict';
 
-        $routeProvider.otherwise({
-            redirectTo: '/users'
-        });
+        $routeProvider.
+            when('/users', {
+                templateUrl: 'user-list/user-list.html',
+                controller: 'UserListCtrl'
+            }).
+            when('/users/:id', {
+                templateUrl: 'user-detail/user-detail.html',
+                controller: 'UserDetailCtrl'
+            }).
+            otherwise({
+                redirectTo: '/users'
+            });
     }]).
     config(['localStorageServiceProvider', function (localStorageServiceProvider) {
         'use strict';
