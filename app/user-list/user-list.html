@@ -29,14 +29,22 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="5" class="text-center">
+                    <td colspan="3" class="text-center">
                         <div st-pagination="" st-items-by-page="ULC.itemsByPage" st-displayed-pages="7"></div>
+                    </td>
+                    <td colspan="1" class="text-right">
+                        <b>Users per page</b>
+                    </td>
+                    <td colspan="1" class="text-left">    
+                        <input class="form-control input-sm" type="number" ng-model="ULC.itemsByPage">
                     </td>
                 </tr>
             </tfoot>
         </table>
-        <label>Items per page: </label>
-        <input class="input-sm form-control ng-pristine ng-untouched ng-valid" name="items" id="items" type="number" ng-model="ULC.itemsByPage">
+        
+        <div class="text-right">
+            
+        </div>
     </div>
 
     <hr>

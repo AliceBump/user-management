@@ -9,20 +9,17 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
         // Makes a copy of the user when Edit button is clicked
         UDC.editUser = function () {
             UDC.selectedUser = angular.copy(UDC.user);
-            
             UDC.updating = true;
         };
 
         // Saves updated user when Save button is clicked
         UDC.updateUser = function () {
-            // Set the updated time
             UDC.selectedUser.updated = new Date();
             
             // Save updated user into local storage
             userFactory.set(UDC.user.id, UDC.selectedUser);
             
             UDC.user = UDC.selectedUser;
-            
             UDC.updating = false;
         };
 
