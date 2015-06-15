@@ -1,4 +1,4 @@
-<div class="container" ng-controller="UserDetailCtrl">
+<div class="container" ng-controller="UserDetailCtrl as UDC">
     <div class="page-header">
         <h3>User Detail</h3>
     </div>
@@ -6,16 +6,16 @@
     <table class="user-detail">
         <tr>
             <td><b>Username:</b></td>
-            <td ng-hide="updating">{{ user.username }}</td>
+            <td ng-hide="updating">{{ UDC.user.username }}</td>
             <td ng-show="updating">
                 <form name="editFormUname">
-                    <input class="form-control" type="email" aria-describedby="sizing-addon3" ng-model="user.selected.username" required/>
+                    <input class="form-control" type="email" aria-describedby="sizing-addon3" ng-model="user.selected.username" ui-validate="{unique : 'uniqueUsername($value, {{user.selected.username}})' }" srequired/>
                 </form>
             </td>
         </tr>
         <tr>
             <td><b>Password:</b></td>
-            <td ng-hide="updating">{{ user.password }}</td>
+            <td ng-hide="updating">{{ UDC.user.password }}</td>
             <td ng-show="updating">
                 <form name="editFormPword">
                     <input class="form-control" aria-describedby="sizing-addon3" ng-model="user.selected.password" ng-minlength="8" ng-pattern="/(?=.*?[0-9])/" required/>
@@ -24,11 +24,11 @@
         </tr>
         <tr>
             <td><b>Created:</b></td>
-            <td>{{user.created | date:'medium'}}</td>
+            <td>{{ UDC.user.created | date:'medium' }}</td>
         </tr>
         <tr>
             <td style="padding-right: 8px;"><b>Last Updated:</b></td>
-            <td>{{ user.updated | date:'medium'}}</td>
+            <td>{{ UDC.user.updated | date:'medium' }}</td>
         </tr>
     </table>
     

@@ -1,51 +1,51 @@
 angular.module('userMgmtApp.user-detail', ['ngRoute'])
-    .config(['$routeProvider', function ($routeProvider) {
-        'use strict';
-
-        $routeProvider.when('/users/:id', {
-            templateUrl: 'user-detail/user-detail.html',
-            controller: 'UserDetailCtrl'
-        });
-    }])
-    .controller('UserDetailCtrl', ['$scope', '$location', '$routeParams', 'uuid4', 'usersFactory', function ($scope, $location, $routeParams, uuid4, usersFactory) {
+    .controller('UserDetailCtrl', ['$scope', '$location', '$routeParams', 'uuid4', 'userFactory', function ($scope, $location, $routeParams, uuid4, userFactory) {
         'use strict';
         
-        $scope.user = usersFactory.get($routeParams.id);
-        $scope.tokens = usersFactory.get($routeParams.id).tokens || [];
+        var UDC = this;
+        
+        UDC.user = userFactory.get($routeParams.id);
 
         // Watch the user object for any changes
-        $scope.$watch($scope.user, function () {
-            usersFactory.set($routeParams.id, $scope.user);
+//        $scope.$watch(UDC.user, function () {
+//            userFactory.set($routeParams.id, UDC.user);
+//        });
+        
+        // Watch the user object for any changes
+        $scope.$watch(function () {
+            return this.user;
+        }, function (newVal, oldVal) {
+            userFactory.set($routeParams.id, newVal);
         });
         
         // Makes a copy of the user when Edit button is clicked
-        $scope.editUser = function (user) {
-            $scope.user.selected = angular.copy(user);
+        UDC.editUser = function (user) {
+            UDC.user.selected = angular.copy(user);
         };
 
         // Saves updated user when Save button is clicked
-        $scope.updateUser = function (user) {
-            $scope.user.selected.updated = new Date();
-            usersFactory.set(user.id, $scope.user.selected);
-            $scope.user = $scope.user.selected;
+        UDC.updateUser = function (user) {
+            UDC.user.selected.updated = new Date();
+            userFactory.set(user.id, UDC.user.selected);
+            UDC.user = UDC.user.selected;
         };
 
         // Deletes user
-        $scope.deleteUser = function (user) {
-            var userIds = usersFactory.get('userIds');
+        UDC.deleteUser = function (user) {
+            var userIds = userFactory.get('userIds');
             
             // Deletes user ID from userIDs array
             userIds.splice(userIds.indexOf(user.id), 1);
-            usersFactory.set('userIds', userIds);
+            userFactory.set('userIds', userIds);
             
             // Deletes user object from local storage
-            usersFactory.remove(user.id);
+            userFactory.remove(user.id);
             
             // Redirects to user list page
             $location.path('/user');
         };
     }])
-    .directive('myTokens', function ($routeParams, uuid4, usersFactory) {
+    .directive('myTokens', function ($routeParams, uuid4, userFactory) {
         'use strict';
 
         return {
@@ -65,16 +65,16 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
                     }
 
                     $scope.user.tokens[newToken] = newValue;
-                    usersFactory.set($routeParams.id, $scope.user);
+                    userFactory.set($routeParams.id, $scope.user);
 
-                    $scope.tokens = usersFactory.get($routeParams.id).tokens;
+                    $scope.tokens = userFactory.get($routeParams.id).tokens;
                 };
 
                 // Deletes the token at that index
                 $scope.deleteToken = function (index) {
                     $scope.tokens.splice(index, 1);
                     $scope.user.tokens = $scope.tokens;
-                    usersFactory.set($routeParams.id, $scope.user);
+                    userFactory.set($routeParams.id, $scope.user);
                 };
             },
             templateUrl: 'user-detail/my-tokens.html'
