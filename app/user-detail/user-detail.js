@@ -6,27 +6,20 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
         
         UDC.user = userFactory.get($routeParams.id);
 
-        // Watch the user object for any changes
-//        $scope.$watch(UDC.user, function () {
-//            userFactory.set($routeParams.id, UDC.user);
-//        });
-        
-        // Watch the user object for any changes
-//        $scope.$watch(function () {
-//            return this.user;
-//        }, function (newVal, oldVal) {
-//            userFactory.set($routeParams.id, newVal);
-//        });
-        
         // Makes a copy of the user when Edit button is clicked
-        UDC.editUser = function (user) {
-            UDC.selectedUser = angular.copy(user);
+        UDC.editUser = function () {
+            UDC.selectedUser = angular.copy(UDC.user);
+            console.log(UDC.selectedUser);
         };
 
         // Saves updated user when Save button is clicked
-        UDC.updateUser = function (user) {
+        UDC.updateUser = function () {
+            // Set the updated time
             UDC.selectedUser.updated = new Date();
-            userFactory.set(user.id, UDC.selectedUser);
+            
+            // Save updated user into local storage
+            userFactory.set(UDC.user.id, UDC.selectedUser);
+            
             UDC.user = UDC.selectedUser;
         };
 

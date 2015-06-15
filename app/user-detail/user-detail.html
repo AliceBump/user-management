@@ -11,6 +11,14 @@
                 <form name="editFormUname">
                     <input class="form-control" type="email" aria-describedby="sizing-addon3" ng-model="UDC.selectedUser.username"
                            ui-validate="{ unique : 'UDC.uniqueUsername($value, 0)' }" required/>
+                    <span ng-show="editFormUname.$error.required && editFormUname.$dirty">Required</span>
+                    <span ng-show="!editFormUname.$error.required && editFormUname.$error.email && editFormUname.$dirty">
+                        Username must be a valid email.
+                    </span>
+                    <span ng-show="!editFormUname.$error.required && !editFormUname.$error.email && editFormUname.$error.unique
+                                   && editFormUname.$dirty">
+                        Username already exists.
+                    </span>
                 </form>
             </td>
         </tr>
@@ -35,13 +43,13 @@
     </table>
     
     <div ng-hide="updating">
-        <button class="btn btn-default btn-sm" ng-click="updating = true; editUser(UDC.user)">
+        <button class="btn btn-default btn-sm" ng-click="updating = true; UDC.editUser()">
             <span class="glyphicon glyphicon-pencil"></span>   Edit
         </button>
     </div>
     
     <div ng-show="updating">
-        <button class="btn btn-success btn-sm" ng-disabled="!editFormUname.$valid || !editFormPword.$valid" ng-click="updateUser(UDC.user); updating = false">
+        <button class="btn btn-success btn-sm" ng-disabled="!editFormUname.$valid || !editFormPword.$valid" ng-click="UDC.updateUser(); updating = false">
             Save
         </button>
         <button class="btn btn-default btn-sm" ng-click="updating = false">
