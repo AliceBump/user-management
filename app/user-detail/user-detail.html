@@ -13,14 +13,14 @@
                 <form name="editFormUname">
                     <input class="form-control" type="email" aria-describedby="sizing-addon3" ng-model="UDC.selectedUser.username"
                            ui-validate="{ unique : 'UDC.uniqueUsername($value, 0)' }" required/>
-                    <span ng-show="editFormUname.$error.required && editFormUname.$dirty">Required</span>
-                    <span ng-show="!editFormUname.$error.required && editFormUname.$error.email && editFormUname.$dirty">
+                    <td ng-show="editFormUname.$error.required && editFormUname.$dirty">Required</td>
+                    <td ng-show="!editFormUname.$error.required && editFormUname.$error.email && editFormUname.$dirty">
                         Username must be a valid email.
-                    </span>
-                    <span ng-show="!editFormUname.$error.required && !editFormUname.$error.email && editFormUname.$error.unique
+                    </td>
+                    <td ng-show="!editFormUname.$error.required && !editFormUname.$error.email && editFormUname.$error.unique
                                    && editFormUname.$dirty">
                         Username already exists.
-                    </span>
+                    </td>
                 </form>
             </td>
         </tr>
@@ -31,6 +31,14 @@
                 <form name="editFormPword">
                     <input class="form-control" aria-describedby="sizing-addon3" ng-model="UDC.selectedUser.password" 
                            ng-minlength="8" ng-pattern="/(?=.*?[0-9])/" required/>
+                    <td ng-show="editFormPword.$error.required && editFormPword.$dirty">Required</td>
+                    <td ng-show="!editFormPword.$error.required && editFormPword.$error.minlength && editFormPword.$dirty">
+                        Passwords must be at least 8 characters.
+                    </td>
+                    <td ng-show="!editFormPword.$error.require && !editFormPword.$error.minlength && editFormPword.$error.pattern 
+                            && editFormPword.$dirty">
+                        Passwords must contain at least one numeric character.
+                    </td>
                 </form>
             </td>
         </tr>
