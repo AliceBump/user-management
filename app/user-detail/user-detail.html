@@ -49,13 +49,13 @@
     </div>
     
     <div ng-show="UDC.updating">
-        <button class="btn btn-success btn-sm" ng-disabled="!editFormUname.$valid || !editFormPword.$valid" ng-click="UDC.updateUser(); updating = false">
+        <button class="btn btn-success btn-sm" ng-disabled="!editFormUname.$valid || !editFormPword.$valid" ng-click="UDC.updateUser()">
             Save
         </button>
         <button class="btn btn-default btn-sm" ng-click="UDC.updating = false">
             Cancel
         </button>
-        <button class="btn btn-danger btn-sm" ng-click="deleteUser(user)">
+        <button class="btn btn-danger btn-sm" ng-click="UDC.deleteUser()">
             <span class="glyphicon glyphicon-trash"></span>   Delete user
         </button>
     </div>

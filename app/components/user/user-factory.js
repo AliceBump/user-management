@@ -7,13 +7,15 @@ angular.module('userMgmtApp.userFactory', [])
         return {
             // Adds an user ID to the list of user IDs
             addId: function (id) {
-                console.log("newId: " + id);
                 userIds.push(id);
                 localStorageService.set('userIds', userIds);
             },
             
-            getIds : function () {
-                return userIds;
+            // Removes an user ID from the list of user IDs
+            removeId: function (id) {
+                // Delete user ID from userIDs array
+                userIds.splice(userIds.indexOf(id), 1);
+                localStorageService.set('userIds', userIds);
             },
             
             // Adds a value to local storage

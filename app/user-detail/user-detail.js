@@ -28,15 +28,12 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
         };
 
         // Deletes user
-        UDC.deleteUser = function (user) {
-            var userIds = userFactory.get('userIds');
-            
-            // Deletes user ID from userIDs array
-            userIds.splice(userIds.indexOf(user.id), 1);
-            userFactory.set('userIds', userIds);
+        UDC.deleteUser = function () {            
+            // Remove ID from list of UserIds
+            userFactory.removeId(UDC.user.id);
             
             // Deletes user object from local storage
-            userFactory.remove(user.id);
+            userFactory.remove(UDC.user.id);
             
             // Redirects to user list page
             $location.path('/user');
