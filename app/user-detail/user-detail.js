@@ -3,13 +3,15 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
         'use strict';
         
         var UDC = this;
+        UDC.updating = false;
         
         UDC.user = userFactory.get($routeParams.id);
 
         // Makes a copy of the user when Edit button is clicked
         UDC.editUser = function () {
             UDC.selectedUser = angular.copy(UDC.user);
-            console.log(UDC.selectedUser);
+            
+            UDC.updating = true;
         };
 
         // Saves updated user when Save button is clicked
@@ -21,6 +23,8 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
             userFactory.set(UDC.user.id, UDC.selectedUser);
             
             UDC.user = UDC.selectedUser;
+            
+            UDC.updating = false;
         };
 
         // Deletes user

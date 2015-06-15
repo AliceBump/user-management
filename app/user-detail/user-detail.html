@@ -6,8 +6,8 @@
     <table class="user-detail">
         <tr>
             <td><b>Username:</b></td>
-            <td ng-hide="updating">{{ UDC.user.username }}</td>
-            <td ng-show="updating">
+            <td ng-hide="UDC.updating">{{ UDC.user.username }}</td>
+            <td ng-show="UDC.updating">
                 <form name="editFormUname">
                     <input class="form-control" type="email" aria-describedby="sizing-addon3" ng-model="UDC.selectedUser.username"
                            ui-validate="{ unique : 'UDC.uniqueUsername($value, 0)' }" required/>
@@ -24,8 +24,8 @@
         </tr>
         <tr>
             <td><b>Password:</b></td>
-            <td ng-hide="updating">{{ UDC.user.password }}</td>
-            <td ng-show="updating">
+            <td ng-hide="UDC.updating">{{ UDC.user.password }}</td>
+            <td ng-show="UDC.updating">
                 <form name="editFormPword">
                     <input class="form-control" aria-describedby="sizing-addon3" ng-model="UDC.selectedUser.password" 
                            ng-minlength="8" ng-pattern="/(?=.*?[0-9])/" required/>
@@ -42,17 +42,17 @@
         </tr>
     </table>
     
-    <div ng-hide="updating">
-        <button class="btn btn-default btn-sm" ng-click="updating = true; UDC.editUser()">
+    <div ng-hide="UDC.updating">
+        <button class="btn btn-default btn-sm" ng-click="UDC.editUser()">
             <span class="glyphicon glyphicon-pencil"></span>   Edit
         </button>
     </div>
     
-    <div ng-show="updating">
+    <div ng-show="UDC.updating">
         <button class="btn btn-success btn-sm" ng-disabled="!editFormUname.$valid || !editFormPword.$valid" ng-click="UDC.updateUser(); updating = false">
             Save
         </button>
-        <button class="btn btn-default btn-sm" ng-click="updating = false">
+        <button class="btn btn-default btn-sm" ng-click="UDC.updating = false">
             Cancel
         </button>
         <button class="btn btn-danger btn-sm" ng-click="deleteUser(user)">
