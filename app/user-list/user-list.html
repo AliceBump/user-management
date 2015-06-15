@@ -4,12 +4,12 @@
     </div>
     
     <div>
-        <table st-table="ULC.displayedUsers" st-safe-src="ULC.users" class="table">
+        <table class="table table-striped" st-table="ULC.displayedUsers" st-safe-src="ULC.users">
             <thead>
                 <tr>
                     <th st-ratio="25" st-sort="username">Username</th>
                     <th st-ratio="25" st-sort="password">Password</th>
-                    <th st-ratio="20" st-sort="created">Created</th>
+                    <th st-ratio="20" st-sort="created" st-sort-default="true">Created</th>
                     <th st-ratio="20" st-sort="updated">Updated</th>
                     <th st-ratio="10"></th>
                 </tr>
@@ -35,6 +35,8 @@
                 </tr>
             </tfoot>
         </table>
+        <label>Items per page: </label>
+        <input class="input-sm form-control ng-pristine ng-untouched ng-valid" name="items" id="items" type="number" ng-model="ULC.itemsByPage">
     </div>
 
     <hr>

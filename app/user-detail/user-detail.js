@@ -4,7 +4,6 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
         
         var UDC = this;
         UDC.updating = false;
-        
         UDC.user = userFactory.get($routeParams.id);
 
         // Makes a copy of the user when Edit button is clicked
