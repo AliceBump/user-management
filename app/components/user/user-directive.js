@@ -9,4 +9,18 @@ angular.module('userMgmtApp.userDirective', [])
                 element.css('width', ratio + '%');
             }
         };
+    })
+    .directive('backButton', function () {
+        'use strict';
+
+        return {
+            restrict: 'E',
+            template: '<button class="btn btn-default btn-xs">Back</button>',
+            link: function (scope, element, attrs) {
+                element.on('click', function () {
+                    history.back();
+                    scope.$apply();
+                });
+            }
+        };
     });

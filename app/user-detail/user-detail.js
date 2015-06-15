@@ -28,7 +28,7 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
         };
 
         // Deletes user
-        UDC.deleteUser = function () {            
+        UDC.deleteUser = function () {
             // Remove ID from list of UserIds
             userFactory.removeId(UDC.user.id);
             
@@ -50,21 +50,18 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
         return {
             restrict: 'E',
             controller: function ($scope) {
+                var user = userFactory.get($routeParams.id);
+                $scope.tokens = userFactory.get($routeParams.id).tokens;
                 
                 // Adds a random, unique token to the user
                 $scope.addToken = function () {
                     var newValue = uuid4.generate(),
-                        newToken;
+                        numToken;
 
-                    if ($scope.tokens.length === 0) {
-                        $scope.user.tokens = [];
-                        newToken = 0;
-                    } else {
-                        newToken = $scope.user.tokens.length;
-                    }
+                    numToken = user.tokens.length;
 
-                    $scope.user.tokens[newToken] = newValue;
-                    userFactory.set($routeParams.id, $scope.user);
+                    user.tokens[numToken] = newValue;
+                    userFactory.set($routeParams.id, user);
 
                     $scope.tokens = userFactory.get($routeParams.id).tokens;
                 };
@@ -72,8 +69,8 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
                 // Deletes the token at that index
                 $scope.deleteToken = function (index) {
                     $scope.tokens.splice(index, 1);
-                    $scope.user.tokens = $scope.tokens;
-                    userFactory.set($routeParams.id, $scope.user);
+                    user.tokens = $scope.tokens;
+                    userFactory.set($routeParams.id, user);
                 };
             },
             templateUrl: 'user-detail/my-tokens.html'
