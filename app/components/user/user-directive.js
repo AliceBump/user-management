@@ -30,8 +30,8 @@ angular.module('userMgmtApp.userDirective', [])
         return {
             restrict: 'E',
             controller: function ($scope) {
-                var user = userFactory.get($routeParams.id);
-                $scope.tokens = userFactory.get($routeParams.id).tokens;
+                var user = userFactory.getUser($routeParams.id);
+                $scope.tokens = userFactory.getUser($routeParams.id).tokens;
                 
                 // Adds a random, unique token to the user
                 $scope.addToken = function () {
@@ -39,18 +39,21 @@ angular.module('userMgmtApp.userDirective', [])
                         numToken;
 
                     numToken = user.tokens.length;
-
                     user.tokens[numToken] = newValue;
-                    userFactory.set($routeParams.id, user);
+                    
+                    // Save to local storage
+                    userFactory.updateUser(user);
 
-                    $scope.tokens = userFactory.get($routeParams.id).tokens;
+                    $scope.tokens = userFactory.getUser($routeParams.id).tokens;
                 };
 
                 // Deletes the token at that index
                 $scope.deleteToken = function (index) {
                     $scope.tokens.splice(index, 1);
                     user.tokens = $scope.tokens;
-                    userFactory.set($routeParams.id, user);
+                    
+                    // Save to local storage
+                    userFactory.updateUser(user);
                 };
             },
             templateUrl: 'components/user/my-tokens.html'

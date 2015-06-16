@@ -18,8 +18,8 @@ angular.module('userMgmtApp.userFactory', [])
             },
             
             // Gets a value from local storage
-            get: function (key) {
-                return localStorageService.get(key);
+            getUser: function (userId) {
+                return localStorageService.get(userId);
             },
             
             // Gets all users from local storage
