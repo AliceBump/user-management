@@ -33,7 +33,11 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
         };
         
         // Checks to see if username is unique
-        UDC.uniqueUsername = function (value, newUser) {
-            return userService.uniqueUsername(value, UDC.user.username);
+        UDC.uniqueUsername = function (newUsername) {
+            if (newUsername) {
+                return userService.uniqueUsername(newUsername, UDC.user.username);
+            }
+            
+            return true;
         };
     }]);

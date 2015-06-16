@@ -24,13 +24,13 @@ angular.module('userMgmtApp.userFactory', [])
             
             // Gets all users from local storage
             getAll: function () {
-                var i,
+                var idx,
                     user,
                     users = [],
                     userIds = localStorageService.get('userIds') || [];
                 
-                for (i = 0; i < userIds.length; i = i + 1) {
-                    user = localStorageService.get(userIds[i]);
+                for (idx = 0; idx < userIds.length; idx = idx + 1) {
+                    user = localStorageService.get(userIds[idx]);
                     users.push(user);
                 }
                 

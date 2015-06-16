@@ -12,7 +12,7 @@
             <td ng-show="UDC.updating">
                 <form name="editFormUname">
                     <input class="form-control" type="email" aria-describedby="sizing-addon3" ng-model="UDC.selectedUser.username"
-                           ui-validate="{ unique : 'UDC.uniqueUsername($value, 0)' }" required/>
+                           ui-validate="{ unique : 'UDC.uniqueUsername($value)' }" required/>
                     <td ng-show="editFormUname.$error.required && editFormUname.$dirty">Required</td>
                     <td ng-show="!editFormUname.$error.required && editFormUname.$error.email && editFormUname.$dirty">
                         Username must be a valid email.

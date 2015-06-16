@@ -30,7 +30,11 @@ angular.module('userMgmtApp.user-list', ['ngRoute'])
         };
         
         // Checks to see if username is unique
-        ULC.uniqueUsername = function (value, newUser) {
-            return userService.uniqueUsername(value, newUser);
+        ULC.uniqueUsername = function (newUsername) {
+            if (newUsername) {
+                return userService.uniqueUsername(newUsername, null);
+            }
+            
+            return true;
         };
     }]);
