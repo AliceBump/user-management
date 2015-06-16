@@ -5,23 +5,16 @@ angular.module('userMgmtApp.userFactory', [])
         var userIds = localStorageService.get('userIds') || [];
     
         return {
-            // Adds an user ID to the list of user IDs
-            addId: function (id) {
-                userIds.push(id);
+            // Saves a new user to local storage
+            addUser: function (newUser) {
+                userIds.push(newUser.id);
                 localStorageService.set('userIds', userIds);
+                localStorageService.set(newUser.id, newUser);
             },
             
-            // Removes an user ID from the list of user IDs
-            removeId: function (id) {
-                // Delete user ID from userIDs array
-                userIds.splice(userIds.indexOf(id), 1);
-                localStorageService.set('userIds', userIds);
-            },
-            
-            // Adds a value to local storage
-            set: function (key, value) {
-                localStorageService.set(key, value);
-                return this.getAll();
+            // Saves editted user to local storage
+            updateUser: function (editedUser) {
+                localStorageService.set(editedUser.id, editedUser);
             },
             
             // Gets a value from local storage
@@ -45,7 +38,7 @@ angular.module('userMgmtApp.userFactory', [])
             },
             
             // Removes user from local storage
-            remove: function (userId) {
+            deleteUser: function (userId) {
                 localStorageService.remove(userId);
             }
         };

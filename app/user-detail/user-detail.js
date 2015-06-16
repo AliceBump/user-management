@@ -17,7 +17,7 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
             UDC.selectedUser.updated = new Date();
             
             // Save updated user into local storage
-            userFactory.set(UDC.user.id, UDC.selectedUser);
+            userFactory.updateUser(UDC.selectedUser);
             
             UDC.user = UDC.selectedUser;
             UDC.updating = false;
@@ -25,11 +25,8 @@ angular.module('userMgmtApp.user-detail', ['ngRoute'])
 
         // Deletes user
         UDC.deleteUser = function () {
-            // Remove ID from list of UserIds
-            userFactory.removeId(UDC.user.id);
-            
             // Deletes user object from local storage
-            userFactory.remove(UDC.user.id);
+            userFactory.deleteUser(UDC.user.id);
             
             // Redirects to user list page
             $location.path('/user');

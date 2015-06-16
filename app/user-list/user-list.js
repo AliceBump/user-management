@@ -18,10 +18,7 @@ angular.module('userMgmtApp.user-list', ['ngRoute'])
                            tokens: [] };
 
             // Save to local storage
-            userFactory.set(newId, newUser);
-
-            // Add new user ID to the array
-            userFactory.addId(newId);
+            userFactory.addUser(newUser);
 
             // Get all users into scope
             ULC.users = userFactory.getAll();
